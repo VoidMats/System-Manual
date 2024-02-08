@@ -17,8 +17,8 @@ Check if your ip is static
 Check mac address on IPs close to this computer
 > ip neighbour
 
-List ports on system. Use grep to 
-> sudo lsof -i -P -n [ | grep LISTEN ]
+List ports on system. Use grep to show only ports which is/are listening
+> sudo lsof -i -P -n | grep LISTEN
 
 System disk information
 > lsblk
@@ -37,13 +37,13 @@ System disk information
  * --no-pager = Do not pipe output into a pager
 
 Example: 
-> journalctl --no-pager -n [ nr_lines ] -u [ service ]
+> journalctl --no-pager -n [nr_lines] -u [service]
 
 
 ### SSH
 
 Create a new key for your system
-> ssh-keygen -t [ algorithm ] -C [ email ]
+> ssh-keygen -t [algorithm] -C [email]
 
 Add your private SSH key to ssh-agent. Start with activate the agent in the background 
 > eval "$(ssh-agent -s)"
