@@ -1,5 +1,3 @@
-
-
 ## System specific commands
 
 ### Linux commands
@@ -16,8 +14,16 @@ Get network info
 Check if your ip is static
 > ip a | grep dynamic
 
+Check mac address on IPs close to this computer
+> ip neighbour
+
 List ports on system. Use grep to 
 > sudo lsof -i -P -n [ | grep LISTEN ]
+
+System disk information
+> lsblk
+
+> df -h
 
 ### Log & Loggers
 
@@ -49,6 +55,17 @@ Copy key to another system
 
 Delete old known_hosts which gave remote host identification has changed. It possible to check which lines of the file ~/.ssh/known_hosts are effected with command 'cat ~/.ssh/known_hosts'.  
 > ssh-keygen -R [hostname|ip]
+> example $ ssh-keygen -R 192.168.1.3
+
+### Docker
+
+Login to a container
+> sudo docker exec -it [kontainernamn] sh
+
+### NPM
+
+Install new repository on a windows system ()
+> npm install -no-bin-links
 
 ### Certificate
 
@@ -59,7 +76,7 @@ Delete old known_hosts which gave remote host identification has changed. It pos
 #### Check valid date certificate 
 > openssl x509 -enddate -noout -in certificate.pem
 
-### SQLITE3
+### Sqlite3
 
 Check if database is malformed
 > sqlite3 mydata.db "PRAGMA integrity_check"
@@ -69,6 +86,13 @@ Repair malformed database
 
 > sqlite3 broken.db ".dump" | sqlite3 new.db
 
+### PostgreSQL
+
+Vacuum system. When running full any service which use this database should be shutdown during this process.
+> VACUUM (VERBOSE, ANALYZE, FULL) table;
+* VERBOSE = Prints detailed vacuum activity
+* ANALYZE = Updates statistics used by the planner to determine the most efficient way to execute a query
+* FULL = Reclaim more space to the system by rewritting the table. Need double the space as the table during this process.  
 
 ## Service specific commands
 
@@ -83,3 +107,9 @@ Start and stop teleport
 
 > sudo systemctl stop teleport
 
+### Zabbix
+
+Start and stop zabbix
+> sudo systemctl stop zabbix-server
+
+> sudo systemctl start zabbix-server
