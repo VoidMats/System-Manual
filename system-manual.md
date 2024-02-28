@@ -17,13 +17,17 @@ Check if your ip is static
 Check mac address on IPs close to this computer
 > ip neighbour
 
-List ports on system. Use grep to show only ports which is/are listening
-> sudo lsof -i -P -n | grep LISTEN
+List ports on system. Use grep to show only ports which is/are listening. To stop any ongoing processes, use the 'kill' command  by its id. If the process still does not stop, it's possible to use -9 which is a force signal. But any unsaved data will be lost.
+```
+$ sudo lsof -i -P -n | grep LISTEN                      # Will list all ports that are listening
+$ sudo kill -1 [Id_from_second_column_in_list]          #      
+```
 
 System disk information
-> lsblk
-
-> df -h
+```
+$ lsblk                                                 # 
+$ df -h                                                 #
+```
 
 ### Log & Loggers
 
@@ -57,15 +61,30 @@ Delete old known_hosts which gave remote host identification has changed. It pos
 > ssh-keygen -R [hostname|ip]
 > example $ ssh-keygen -R 192.168.1.3
 
-### Docker
+### Docker & docker-compose
 
 Login to a container
-> sudo docker exec -it [kontainernamn] sh
+```
+$ sudo docker exec -it [kontainernamn] sh 
+$ sudo docker-compose exec [service_name_in_docker_compose] sh
+```
+See actual status of all containers in a docker system. Update interval 
+```
+$ sudo docker stats
+$ sudo docker container stats [CONTAINER...]
+```
+See how much disk space could be reclaimed from docker and how to reclaim it. It should be noted that prune will remove all containers which are in stop state.  
+```
+$ sudo docker system df
+$ sudo docker system prune
+``` 
 
 ### NPM
 
 Install new repository on a windows system ()
-> npm install -no-bin-links
+```
+$ npm install -no-bin-links
+```
 
 ### Certificate
 
@@ -99,13 +118,12 @@ Vacuum system. When running full any service which use this database should be s
 ### Teleport 
 
 Start and stop teleport
-> sudo service teleport start 
-
-> sudo systemctl start teleport
-
-> sudo service teleport stop
-
-> sudo systemctl stop teleport
+```
+sudo service teleport start 
+sudo systemctl start teleport
+sudo service teleport stop
+sudo systemctl stop teleport
+```
 
 ### Zabbix
 
@@ -113,3 +131,5 @@ Start and stop zabbix
 > sudo systemctl stop zabbix-server
 
 > sudo systemctl start zabbix-server
+
+
