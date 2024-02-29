@@ -44,7 +44,7 @@ Example:
 > journalctl --no-pager -n [nr_lines] -u [service]
 
 
-### SSH
+### ssh
 
 Create a new key for your system
 > ssh-keygen -t [algorithm] -C [email]
@@ -78,14 +78,14 @@ $ sudo docker system df
 $ sudo docker system prune
 ``` 
 
-### NPM
+### npm
 
-Install new repository on a windows system ()
+Install new repository on a windows system and get following error: ENOTSUP: operation not supported on socket, symlink
 ```
-$ npm install -no-bin-links
+$ npm install -no-bin-links                                 # Npm does not create symlinks for any binaries 
 ```
 
-Install a private repository 
+Install a private repository. More info [npm doc - url dependencies](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#git-urls-as-dependencies) and [npm doc - private packages](https://docs.npmjs.com/about-private-packages)
 ```
 <protocol>://[<user>[:<password>]@]<hostname>[:<port>][:][/]<path>[#<commit-ish> | #semver:<semver>]
 Example
