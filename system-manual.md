@@ -5,11 +5,11 @@ Get linux/operation version
 > cat /etc/os-release
 
 Get network info
-> ifconfig
-
-> cat /etc/network/interfaces
-
-> ip -c a
+```
+$ ifconfig                                              # Lista all network interfaces that are operative
+$ cat /etc/network/interfaces                           #
+$ ip -c a                                               #
+```
 
 Check if your ip is static
 > ip a | grep dynamic
@@ -50,12 +50,11 @@ Create a new key for your system
 > ssh-keygen -t [algorithm] -C [email]
 
 Add your private SSH key to ssh-agent. Start with activate the agent in the background 
-> eval "$(ssh-agent -s)"
-
-> ssh-add ~/.ssh/[key]
-
-Copy key to another system
-> ssh-copy-id -i ~/.ssh/[key] [name]@[ip]
+```
+$ eval "$(ssh-agent -s)"                                # Activate ssh-agent
+$ ssh-add ~/.ssh/[key]                                  # Add key to ssh-agent 
+$ ssh-copy-id -i ~/.ssh/[key] [name]@[ip]               # Copy key to another system
+```
 
 Delete old known_hosts which gave remote host identification has changed. It possible to check which lines of the file ~/.ssh/known_hosts are effected with command 'cat ~/.ssh/known_hosts'.  
 > ssh-keygen -R [hostname|ip]
@@ -63,7 +62,7 @@ Delete old known_hosts which gave remote host identification has changed. It pos
 
 ### Docker & docker-compose
 
-Login to a container
+To use a terminal within a container
 ```
 $ sudo docker exec -it [kontainernamn] sh 
 $ sudo docker-compose exec [service_name_in_docker_compose] sh
@@ -84,6 +83,21 @@ $ sudo docker system prune
 Install new repository on a windows system ()
 ```
 $ npm install -no-bin-links
+```
+
+Install a private repository 
+```
+<protocol>://[<user>[:<password>]@]<hostname>[:<port>][:][/]<path>[#<commit-ish> | #semver:<semver>]
+Example
+$ npm install git+ssh://git@bitbucket.org/user/repository.git       # Install repo from bitbucket
+$ npm install git+ssh://git@github.com/user/project.git             # Install repo from github
+$ npm install git+ssh://user@hostname:project.git#commit-ish        # Install for a certain commit
+$ npm install git+https://user@hostname/project/blah.git            # Install with https
+Concrete examples
+$ npm install git+ssh://git@github.com:npm/cli.git#v1.0.27
+$ npm install git+ssh://git@github.com:npm/cli#semver:^5.0
+$ npm install git+https://isaacs@github.com/npm/cli.git
+$ npm install git://github.com/npm/cli.git#v1.0.27
 ```
 
 ### Certificate
