@@ -106,7 +106,11 @@ $ sudo docker system prune
 
 Install new repository on a windows system and get following error: ENOTSUP: operation not supported on socket, symlink
 ```
-$ npm install -no-bin-links                                 # Npm does not create symlinks for any binaries 
+$ npm install --no-bin-links                                # Npm does not create symlinks for any binaries 
+```
+Sometime git go nuts on package-lock.json and its depencencies. If it's not possible to resolve, delete package-lock.json (**Note!** only package-lock.json) and create a new one from package.json
+```
+$ npm install --package-lock-only                           # Npm create a new package-lock.json
 ```
 
 Install a private repository. More info [npm doc - url dependencies](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#git-urls-as-dependencies) and [npm doc - private packages](https://docs.npmjs.com/about-private-packages)
