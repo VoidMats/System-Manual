@@ -2,20 +2,25 @@
 
 ### Linux commands
 Get linux/operation version
-> cat /etc/os-release
-
-Get network info
 ```
-$ ifconfig                                              # Lista all network interfaces that are operative
-$ cat /etc/network/interfaces                           #
-$ ip -c a                                               #
+$ cat /etc/os-release                           # 
 ```
 
-Check if your ip is static
-> ip a | grep dynamic
+Get network info on a linux system. It should be noted depending on which linus os is running the commands below might not work. Also, it's very depending of which version is used. Few of many commands...
+```
+$ ifconfig                                      # Lista all network interfaces that are operative
+$ cat /etc/network/interfaces                   # Possible that configuration file is placed in another location
+$ nmcli con show                                # Show all network connection
+$ nmcli con show [connection]                   # Get specific info of connection
+$ ip -c a                                       #
+$ ip route list default | grep dhcp             # Check if your ip is dynamic
+$ ip route list default | grep static           # Check if your ip is static
+```
 
 Check mac address on IPs close to this computer
-> ip neighbour
+```
+$ ip neighbour
+```
 
 List ports on system. Use grep to show only ports which is/are listening. To stop any ongoing processes, use the 'kill' command  by its id. If the process still does not stop, it's possible to use -9 which is a force signal. But any unsaved data will be lost.
 ```
@@ -62,7 +67,7 @@ Delete old known_hosts which gave remote host identification has changed. It pos
 > example $ ssh-keygen -R 192.168.1.3
 
 ---
-### mount on linux
+### Mount on linux
 
 #### CIFS
 Make sure that CIFS utilities packages are installed.
