@@ -163,6 +163,15 @@ $ sqlite3 broken.db ".dump" | sqlite3 new.db            #
 
 ### PostgreSQL
 
+Login to PostgresSQL in terminal
+```
+$ psql <protocol>://[<user>[:<password>]@]<hostname>[:<port>][:][/]<path>
+$ psql -h [hostname] -d [database] -U [user] -p [port]
+
+Example:
+$ psql postgresql://zabbix:<pwd>@localhost:5432/zabbix
+```
+
 Vacuum system. When running full any service which use this database should be shutdown during this process.
 ```
 $ VACUUM (VERBOSE, ANALYZE, FULL) table;
@@ -186,8 +195,9 @@ sudo systemctl stop teleport
 ### Zabbix
 
 Start and stop zabbix
-> sudo systemctl stop zabbix-server
-
-> sudo systemctl start zabbix-server
+```
+$ sudo systemctl stop zabbix-server             # Shutdown zabbix
+$ sudo systemctl start zabbix-server            # Start zabbix
+```
 
 
