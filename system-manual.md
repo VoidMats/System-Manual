@@ -174,7 +174,7 @@ $ psql postgresql://zabbix:<pwd>@localhost:5432/zabbix
 
 Vacuum system. When running full any service which use this database should be shutdown during this process.
 ```
-$ VACUUM (VERBOSE, ANALYZE, FULL) table;
+$ VACUUM (VERBOSE, ANALYZE, FULL) [table];
 ```
  - VERBOSE = Prints detailed vacuum activity
  - ANALYZE = Updates statistics used by the planner to determine the most efficient way to execute a query
