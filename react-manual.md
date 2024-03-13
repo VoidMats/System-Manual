@@ -1,6 +1,8 @@
 
 ## React
 
+* [Use async functions in useEffects](#use-async-functions-in-useeffect)
+
 ### npm 
 
 Install a new React project outside 
