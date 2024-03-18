@@ -10,15 +10,25 @@ Git config set confiuration values on a system, global, and local level. The mos
 $ git config user.name "Firstname Secondname"
 $ git config user.mail "some_mail@example.com"
 ```
+#### Get or list configuration options
+To list or get key-values from the configuration file, there are many command options to your disposile
+
+```
+$ git config --list                     # List all configuration options
+$ git config --get user.name            # Get value for configuration user.name locally
+$ git config --get-all user.name        # List all values for the configuration user.name (locally, globally, system)
+$ git config --get-regexp user          # Get values according to a regex
+```
 
 #### Config levels
-**Local**: [--local] 
+**Local**: [--local] Configuration will be stored loaclly for the repository where the command is performed upon. This is also the default option when no configuration level has been passed. The configuration file is stored in the same directory as the repository. 
 
-**Global**: [--global] 
+**Global**: [--global] Global level configuration which onyl apply to the user. Global configuration file(s) is/are stored localy on user home directory. For example on a unix system *~/.gitconfig*
 
-**System**: [--system] System-level configuration which is applied accross an entire machine. This mean it will effect all users and repositories. The values are stored in *gitconfig* at the system root path. 
+**System**: [--system] System level configuration which is applied accross an entire machine. This mean it will effect all users and repositories. The values are stored in *gitconfig* at the system root path. 
 
 #### Set editor to use during merge conflicts
+All commands below are set on a global level, meaning effect only the user. 
 
 |Edit               |Command                                            |
 |:------------------|:--------------------------------------------------|
