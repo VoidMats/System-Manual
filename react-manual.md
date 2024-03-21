@@ -2,6 +2,7 @@
 ## React
 
 * [Use async functions in useEffects](#use-async-functions-in-useeffect)
+* [Adding AbortController to async function in useEffect](#adding-abortcontroller-to-async-function-in-useeffect)
 
 ### npm 
 
@@ -73,3 +74,41 @@ useEffect(() => {
 }, [param]);
 ```
 To read more [Devtrium - How to use async functions in useEffect](https://devtrium.com/posts/async-functions-useeffect)
+
+### Adding AbortController to async function in useEffect
+An *AbortController* is a mechanic where the user or event could abort an ongoing asynchronous task. This create a better resource management, where for example a request could be aborted if user navigate quickly through the page. It could also in some cases avoid race conditions. The interface consist of *AbortController* and *AbortSignal*. 
+```
+useEffect(() => {
+    // Set state 
+    const controller = new AbortController();
+    const signal = controller.signal;
+    let getData = true;
+
+    // Define the async function
+    const fetchData = async () => {
+        const response = await fetch(`https://some/api.com?param=${param}`, { signal });
+        const data = await response.json();
+        // Set state if getData is true
+        if (getData) {
+            setData(data);
+        }
+    }
+
+    // Call the async function
+    fetchData().catch(error => {
+        if (error.name === "AbortError") {
+            console.log("Request aborted);
+        } else {
+            console.error(error);
+        }
+    });
+
+    // Cancel any future data request and abort any fetch during unmount
+    return () => {
+        getData = false;
+        controller.abort();
+    }
+}, [param]);
+
+```
+
