@@ -1,8 +1,19 @@
 
 ## Git 
 
+* [General](#general)
+    - [Set upstream on a branch](#set-upstream-on-a-branch)
 * [Tag](#tag)
 * [Config](#config)
+    - [Set upstream as default on push](#set-config-to-always-place-upstream-on-push)
+
+### General
+
+#### Set upstream on a branch
+```
+$ git push --set-upstream origin <branch>
+NB Please not this could be set in config file 
+```
 
 ### Config
 Git config set confiuration values on a system, global, and local level. The most important values when you create a new repository is to set user.name and user.mail before making the first commit to the repository. As following...
@@ -36,6 +47,11 @@ All commands below are set on a global level, meaning effect only the user.
 | emacs             | git config --global core.editor "emacs"           |
 | nano              | git config --global core.editor "nano -w"         |
 | vim               | git config --global core.editor "vim"             |
+
+#### Set config to always place upstream on push
+```
+$ git config --global --add --bool push.autoSetupRemote true
+```
 
 As usal more info can be found [git doc](https://git-scm.com/docs/git-config)
 
