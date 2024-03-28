@@ -86,6 +86,40 @@ $ ssh-keygen -R [hostname|ip]
 $ example $ ssh-keygen -R 192.168.1.3
 ```
 
+#### ssh configuration
+It is possible to "save" different ssh connection by using config (same name) file in the the .ssh folder. By default, it will try to use key .ssh/id_rsa and after that .ssh/id_dsa. It is possible to specify The structure of the file could for example look like this. 
+```
+Host dev
+    HostName dev.domain.com
+    User UserName1
+    Port 2322
+
+Host alpha
+    HostName 192.168.10.50
+    User UserName2
+    port 2323
+    LogLevel INFO
+
+Host beta
+    HostName 192.168.10.51
+    User UserName3
+    IdentityFile ~/.ssh/id_rsa
+    port 2324
+```
+To use any configuration write (example from configuration above):
+```
+$ ssh dev
+```
+
+Some of the options 
+* LogLevel = Specify level of verbose message. Level which exist are QUIET, FATAL, ERROR, INFO, VERBOSE, DEBUG, DEBUG1, DEBUG2, DEBUG3
+* SendEnv = Specify what environment variables to pass forward to the remote machine.
+* IdentityFile = Specify which key (file) to use against user.
+* HostKeyAlgorithms = 
+* ForwardAgent = The connection to the authentication agent will be forward to the remote machine.
+* Compression = Messages will be compressed.
+* ConnectionAttempts = Set the number of attempts before exiting.
+
 ---
 ### Mount on linux
 
