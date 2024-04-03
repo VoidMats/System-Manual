@@ -3,6 +3,7 @@
 
 * [Use async functions in useEffects](#use-async-functions-in-useeffect)
 * [Adding AbortController to async function in useEffect](#adding-abortcontroller-to-async-function-in-useeffect)
+* [Display component according to a property](#display-component-according-to-a-property)
 
 ### npm 
 
@@ -111,4 +112,15 @@ useEffect(() => {
 }, [param]);
 
 ```
+### Display component according to a property
+A very common way to display a dialog is to use a open property. This could however be added to any component. Example
+```
+export default function SomeComponent({ open }) {
 
+    return (
+        <Box>
+            {(open) && <TextField id="Some id" variant="Outlined" />}
+        </Box>
+    )
+}
+```
