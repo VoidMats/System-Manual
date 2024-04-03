@@ -4,6 +4,8 @@
 * [Get hardware info on a linux system](#get-hardware-info-on-a-linux-system)
 * [Get network info on a linux system](#get-network-info-on-a-linux-system)
 * [Check mac address on IPs close to this computer](#check-mac-address-on-ips-close-to-this-computer)
+* [List port on linux system](#list-port-on-a-linux-system)
+* [Create alias on a linux system](#create-alias-in-linux)
 
 ### Linux commands
 
@@ -40,15 +42,37 @@ $ ip neighbour
 #### List port on a linux system
 Use grep to show only ports which is/are listening. To stop any ongoing processes, use the 'kill' command  by its id. If the process still does not stop, it's possible to use -9 which is a force signal. But any unsaved data will be lost.
 ```
-$ sudo lsof -i -P -n | grep LISTEN                      # Will list all ports that are listening
-$ sudo kill -1 [Id_from_second_column_in_list]          #      
+$ lsof -i -P -n | grep LISTEN                       # Will list all ports that are listening
+$ sudo kill -1 [Id_from_second_column_in_list]      # Will greatfully kill service running on that port
+$ sudo kill -9 [Id_from secong_column_in_list]      # Will force kill of service
 ```
+
+#### Create alias in linux
+If the file **~/.bashrc** have the following lines 
+```
+if [ -f ~/.bash_aliases ]; then
+. ~/.bash_aliases
+fi
+```
+add aliases in file **~/.bash_aliases**, otherwise just place it into the **~/.bashrc**. Example on aliases
+```
+alias grep='grep --color=auto'
+alias ls-port='lsof -i -P -n | grep LISTEN'
+```
+
+Reactivate the **.bashrc** file 
+```
+$ . ~/.bashrc                   # Both command will due
+$ source ~/.bashrc 
+```
+
 
 #### System disk information
 ```
 $ lsblk                                                 # 
 $ df -h                                                 #
 ```
+
 
 ---
 ### Log & Loggers
