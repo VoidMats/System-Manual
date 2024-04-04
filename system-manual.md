@@ -181,11 +181,13 @@ $ npm install --package-lock-only                           # npm create a new p
 Install a private repository. More info [npm doc - url dependencies](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#git-urls-as-dependencies) and [npm doc - private packages](https://docs.npmjs.com/about-private-packages)
 ```
 <protocol>://[<user>[:<password>]@]<hostname>[:<port>][:][/]<path>[#<commit-ish> | #semver:<semver>]
+
 Example
 $ npm install git+ssh://git@bitbucket.org/user/repository.git       # Install repo from bitbucket
 $ npm install git+ssh://git@github.com/user/project.git             # Install repo from github
 $ npm install git+ssh://user@hostname:project.git#commit-ish        # Install for a certain commit
 $ npm install git+https://user@hostname/project/blah.git            # Install with https
+
 Concrete examples
 $ npm install git+ssh://git@github.com:npm/cli.git#v1.0.27
 $ npm install git+ssh://git@github.com:npm/cli#semver:^5.0
