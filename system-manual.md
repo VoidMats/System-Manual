@@ -6,6 +6,7 @@
 * [Check mac address on IPs close to this computer](#check-mac-address-on-ips-close-to-this-computer)
 * [List port on linux system](#list-port-on-a-linux-system)
 * [Create alias on a linux system](#create-alias-in-linux)
+* [File transfer, remote/client - scp](#scp-file-transfer-through-ssh)
 
 ### Linux commands
 
@@ -143,6 +144,27 @@ Some of the options
 * ForwardAgent = The connection to the authentication agent will be forward to the remote machine.
 * Compression = Messages will be compressed.
 * ConnectionAttempts = Set the number of attempts before exiting.
+
+#### scp (file transfer through ssh)
+To transfer a file(s) between a remote and client it's easiest to use scp. It should be noted to be careful when writting files General function
+```
+$ [options] [source_user]@source_host:/directory/source_file [destination_user]@destination_host:/directory(/destination_file)
+ 
+ Examples:
+Copy from your local pc to a remote server
+$ scp image.png remote_user1@192.168.1.2:/desktop/images
+Copy from one remote server to another 
+$ scp remote_user1@192.168.1.2:/desktop/images/image.png remote_user2@192.168.1.3/download
+```
+Some of the options are
+```
+-P = Specify which remote host ssh port to use.
+-p = Preserves file modification and access time.
+-q = Suppress progress meter and non-error messages
+-C = Compress data during transfer
+-r = Copy directories recursively
+```
+
 
 ---
 ### Mount on linux
