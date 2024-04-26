@@ -50,3 +50,29 @@ oldFeature.properties.attr_string = "changed";
 
 console.log(JSON.stringify(oldFeature) !== JSON.stringify(copyFeature))   // true
 ```
+
+#### Functions to drain stream
+```
+async streamToString(stream) {
+    const data = [];
+    return new Promise((resolve, reject) => {
+        stream.on('data', chunk => {
+            data.push(chunk);
+        });
+        stream.on('error', reject)
+        stream.on('end', () => resolve(data.join('')));
+    })
+}
+
+async streamToObject(stream) {
+    const data = [];
+    return new Promise((resolve, reject) => {
+        stream.on('data', chunk => data.push(chunk))
+        stream.on('error', reject)
+        stream.on('end', () => {
+            const result = Buffer.concat(data).toString('utf8');
+            resolve(JSON.parse(result));
+        })
+    })
+}
+```

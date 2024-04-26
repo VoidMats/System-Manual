@@ -232,7 +232,7 @@ Check if database is malformed. The check is done on following:
 - Table and index entries that are out of sequence.
 - Misformatted records.
 - Missing or surplus index entries.
-- UNIQUE, CHECK, NOT NULL constrain errors.
+- UNIQUE, CHECK, NOT NULL contain errors.
 - Integrity of the freelist.
 - Sections of the database that are used more than once, or not at all. 
 ```
