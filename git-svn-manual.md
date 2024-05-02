@@ -54,6 +54,14 @@ All commands below are set on a global level, meaning effect only the user.
 ```
 $ git config --global --add --bool push.autoSetupRemote true
 ```
+#### Set merge options
+If the repository is new and there is no global configuration for merge. Use one of following options. Git will actually report back these options if there is none. 
+```
+git config pull.rebase false  # merge (the default strategy)
+git config pull.rebase true   # rebase
+git config pull.ff only       # fast-forward only
+```
+
 
 As usal more info can be found [git doc](https://git-scm.com/docs/git-config)
 
@@ -86,3 +94,23 @@ $ git push origin v1.2.3
 More info: [git doc](https://git-scm.com/docs/git-tag)
 
 ## SVN
+Most important to know is that SVN is a central rep
+### Basic commands
+
+#### Checkout
+Check out a working copy from the repository. This command is sometimes shortened to svn co. Path could be omitted
+```
+$ svn checkout [url/path]                       # Checkout a complete repository 
+
+```
+
+#### Commit
+Commit code and report back changes to the repository.
+```
+$ svn commit                                    # Commit code to the repository
+
+ Options
+-m = Message
+```
+
+#### List
