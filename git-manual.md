@@ -11,6 +11,8 @@
 
 #### Set upstream on a branch
 ```
+$ git branch --set-upstream-to=origin/<branch> branch
+Possible to set upstream during push 
 $ git push --set-upstream origin <branch>
 NB Please not this could be set in config file 
 ```
