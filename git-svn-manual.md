@@ -1,5 +1,5 @@
 
-## Git 
+## Git
 
 * [General](#general)
     - [Set upstream on a branch](#set-upstream-on-a-branch)
@@ -14,7 +14,7 @@
 $ git branch --set-upstream-to=origin/<branch> branch
 Possible to set upstream during push 
 $ git push --set-upstream origin <branch>
-NB Please not this could be set in config file 
+NB Please note. This could be set in config file 
 ```
 
 ### Config
@@ -74,6 +74,8 @@ $ git tag v1.2.3                                # Create a lightweighted tag
 $ git tag -a v1.2.4 -m "Tag message"            # Create an annotated tag
 $ git tag -a -f v1.2.4 -m "Replace tag"         # Replace tag v1.2.4
 $ git tag -d v1.2.4                             # Delete tag
+$ git push tag -d origin v1.2.4                 # Delete tag on remote
+$ git push origin :refs/tags/v1.2.4             # Delete tag on remote (alternative way)
 $ git checkout tag 1.2.3                        # Checkout to commit with tag v1.2.3
 ```
 Sharing a tag is the same as pushing a branch. However, pushing a branch does not push the tag(s) connected to it. So, this has to be done explicitly by pushing it tag name, such as example.
@@ -82,3 +84,5 @@ $ git push origin v1.2.3
 ```
 
 More info: [git doc](https://git-scm.com/docs/git-tag)
+
+## SVN

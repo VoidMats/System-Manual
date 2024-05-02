@@ -6,6 +6,7 @@
 * [Check mac address on IPs close to this computer](#check-mac-address-on-ips-close-to-this-computer)
 * [List port on linux system](#list-port-on-a-linux-system)
 * [Create alias on a linux system](#create-alias-in-linux)
+* [File transfer, remote/client - scp](#scp-file-transfer-through-ssh)
 
 ### Linux commands
 
@@ -144,6 +145,27 @@ Some of the options
 * Compression = Messages will be compressed.
 * ConnectionAttempts = Set the number of attempts before exiting.
 
+#### scp (file transfer through ssh)
+To transfer a file(s) between a remote and client it's easiest to use scp. It should be noted to be careful when writting files General function
+```
+$ [options] [source_user]@source_host:/directory/source_file [destination_user]@destination_host:/directory(/destination_file)
+ 
+ Examples:
+Copy from your local pc to a remote server
+$ scp image.png remote_user1@192.168.1.2:/desktop/images
+Copy from one remote server to another 
+$ scp remote_user1@192.168.1.2:/desktop/images/image.png remote_user2@192.168.1.3/download
+```
+Some of the options are
+```
+-P = Specify which remote host ssh port to use.
+-p = Preserves file modification and access time.
+-q = Suppress progress meter and non-error messages
+-C = Compress data during transfer
+-r = Copy directories recursively
+```
+
+
 ---
 ### Mount on linux
 
@@ -181,11 +203,13 @@ $ npm install --package-lock-only                           # npm create a new p
 Install a private repository. More info [npm doc - url dependencies](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#git-urls-as-dependencies) and [npm doc - private packages](https://docs.npmjs.com/about-private-packages)
 ```
 <protocol>://[<user>[:<password>]@]<hostname>[:<port>][:][/]<path>[#<commit-ish> | #semver:<semver>]
+
 Example
 $ npm install git+ssh://git@bitbucket.org/user/repository.git       # Install repo from bitbucket
 $ npm install git+ssh://git@github.com/user/project.git             # Install repo from github
 $ npm install git+ssh://user@hostname:project.git#commit-ish        # Install for a certain commit
 $ npm install git+https://user@hostname/project/blah.git            # Install with https
+
 Concrete examples
 $ npm install git+ssh://git@github.com:npm/cli.git#v1.0.27
 $ npm install git+ssh://git@github.com:npm/cli#semver:^5.0
@@ -208,7 +232,7 @@ Check if database is malformed. The check is done on following:
 - Table and index entries that are out of sequence.
 - Misformatted records.
 - Missing or surplus index entries.
-- UNIQUE, CHECK, NOT NULL constrain errors.
+- UNIQUE, CHECK, NOT NULL contain errors.
 - Integrity of the freelist.
 - Sections of the database that are used more than once, or not at all. 
 ```
