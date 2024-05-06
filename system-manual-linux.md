@@ -1,4 +1,4 @@
-## System specific commands
+## Table of content
 
 * [Get linux operation version](#get-linux-operation-version)
 * [Get hardware info on a linux system](#get-hardware-info-on-a-linux-system)
