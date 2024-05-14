@@ -43,9 +43,9 @@ $ ip neighbour
 #### List port on a linux system
 Use grep to show only ports which is/are listening. To stop any ongoing processes, use the 'kill' command  by its id. If the process still does not stop, it's possible to use -9 which is a force signal. But any unsaved data will be lost.
 ```
-$ lsof -i -P -n | grep LISTEN                       # Will list all ports that are listening
-$ sudo kill -1 [Id_from_second_column_in_list]      # Will greatfully kill service running on that port
-$ sudo kill -9 [Id_from secong_column_in_list]      # Will force kill of service
+$ lsof -i -P -n | grep LISTEN                   # Will list all ports that are listening
+$ sudo kill -1 [Id_from_second_column_in_list]  # Will greatfully kill service running on that port
+$ sudo kill -9 [Id_from secong_column_in_list]  # Will force kill of service
 ```
 
 #### Create alias in linux
@@ -63,17 +63,56 @@ alias ls-port='lsof -i -P -n | grep LISTEN'
 
 Reactivate the **.bashrc** file 
 ```
-$ . ~/.bashrc                   # Both command will due
+$ . ~/.bashrc                                   # Both command will due
 $ source ~/.bashrc 
 ```
 
 
 #### System disk information
 ```
-$ lsblk                                                 # 
-$ df -h                                                 #
+$ lsblk                                         # 
+$ df -h                                         #
 ```
 
+---
+### Chron daemon (jobs)
+The Cron daemon is a built-in Linux utility that execute commands/scripts at a predefined time(s) and intervals. The jobs are executed according to a table in a crontab file. Open a crontab file. It possible that the user could be prompted to select a preferred text editor. Enter the corresponding number, for example, 1 for nano, to open the crontab file. If code is selected it will not remember the path.
+```
+$ crontab -e                                    # Open by current user
+$ crontab -e -u [username]                      # Open for another user
+$ crontab -l                                    # Check for active cron jobs
+```
+
+#### Basic syntax
+Normally the cron job send the output of the job to the user email. However, this is not always a wanted feature for very short range interval jobs. 
+If you don't want to Redirect the output of the job by the stream operator (>). For example 
+```
+0 0 * * * /path/to/script.sh > ~/tmp/output.txt # Output is saved to user tmp folder
+0 0 * * * /path/to/script.sh > /dev/null 2>&1   # No output
+```
+
+Addding MAILTO='' above the cron job will not send an email to the user. It is ofcourse possible to add another email instead of the system email of the current user.   
+```
+* * * * * [username] command arg1 arg2...
+- - - - -
+| | | | |
+| | | | ----- Day of week (0 - 7) (Sunday=0 or 7)
+| | | ------- Month (1 - 12)
+| | --------- Day of month (1 - 31)
+| ----------- Hour (0 - 23)
+------------- Minute (0 - 59)
+
+If username is missing current user will be used.
+```
+#### Note 
+From cron manual:
+>The day of a command's execution can be specified in the following two fields — 'day of month', and 'day of week'. If both fields are restricted (i.e., do not contain the "*" character), the command will be run when either field matches the crent time. For example, "30 4 1,15 * 5" would cause a command to be run at 4:30 am on the 1st and 15th of each month, plus every Friday.
+
+#### Example of different cron intervals
+|Cron job                                                  | Description                          |
+|:---------------------------------------------------------|:-------------------------------------|
+| 0 9 1-7 * * [ $(date +\%u) = 7 ] && /path/to/your/script |Run every 1 sunday of the Month 09:00 |
+| 
 
 ---
 ### Log & Loggers

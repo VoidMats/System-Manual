@@ -6,10 +6,10 @@
 
 
 ### Config powershell
-To config powershell it must have a profile. Activate profile by running this in powershell. 
+To config powershell it must have a profile. By default it's not possible to create a profie, but it's possible to activate it by running this in powershell. 
 ```
-$ Get-executionpolicy                   # Show execution policy of scripts in powershell
-$ Set-executionpolicy -ExecutionPolicy [option] -Scope [option]
+$ Get-executionpolicy                                               # Show execution policy of scripts in powershell
+$ Set-executionpolicy -ExecutionPolicy [option] -Scope [option]     # Set execution policy for powershell
 
  Scope options
 MachinePolicy = policy on all users
