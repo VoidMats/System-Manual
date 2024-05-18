@@ -2,11 +2,15 @@
 
 * [Get linux operation version](#get-linux-operation-version)
 * [Get hardware info on a linux system](#get-hardware-info-on-a-linux-system)
-* [Get network info on a linux system](#get-network-info-on-a-linux-system)
-* [Check mac address on IPs close to this computer](#check-mac-address-on-ips-close-to-this-computer)
-* [List port on linux system](#list-port-on-a-linux-system)
-* [Create alias on a linux system](#create-alias-in-linux)
-* [File transfer, remote/client - scp](#scp-file-transfer-through-ssh)
+    * [Get network info on a linux system](#get-network-info-on-a-linux-system)
+    * [Check mac address on IPs close to this computer](#check-mac-address-on-ips-close-to-this-computer)
+    * [List port on linux system](#list-port-on-a-linux-system)
+    * [Create alias on a linux system](#create-alias-in-linux)
+* [Firewall](#firewall)
+* [Chron](#chron-daemon-jobs)
+    * [Chron syntax](#basic-syntax)
+* [SSH](#ssh)
+    * [File transfer, remote/client - scp](#scp-file-transfer-through-ssh)
 
 ### Linux commands
 
@@ -74,6 +78,34 @@ $ lsblk                                         #
 $ df -h                                         #
 ```
 
+### Firewall
+
+#### UFW
+The default firewall for a linux system is usally 'ufw'. It's a tool to configure the *iptables* of the firewall. Depending on linux destribution the firewall could be disabled. The default policy is 'deny incoming traffic' and 'allow outgoing traffic'. 
+```
+$ sudo ufw enable                               # Enable firewall on machine
+$ sudo ufw status verbose                       # Check status of firewall
+$ sudo ufw disable                              # Disable firewall on machine
+```
+To add a rule is as simple as using the allow/deny command and then reload the ufw. 
+```
+$ sudo ufw allow 22/tcp                         # Example to allow port 22/tcp
+$ sudo ufw allow 22 from [ip]                   # Allow port 22 from ip 
+$ sudo ufw deny 23/udp                          # deny traffic on port 23 for tcp
+$ sudo ufw reload                               # Apply the rule, by reload the firewall
+ Example of deleting a rule
+$ sudo ufw delete allow 22/tcp                  # Remove rule
+ To make it easier to delete rules run these commands
+$ sudo ufw status numbered 
+$ sudo ufw delete [number]
+```
+It also possible to strict allow/deny ingoing and outgoing traffic, by using the 'in' and 'out' argument. 
+```
+$ sudo ufw allow in 23/tcp                      # Only allow incomming traffic on port 23
+$ sudo ufw deny in 443                          # Deny incoming traffic on port 443
+
+```
+
 ---
 ### Chron daemon (jobs)
 The Cron daemon is a built-in Linux utility that execute commands/scripts at a predefined time(s) and intervals. The jobs are executed according to a table in a crontab file. Open a crontab file. It possible that the user could be prompted to select a preferred text editor. Enter the corresponding number, for example, 1 for nano, to open the crontab file. If code is selected it will not remember the path.
@@ -87,8 +119,9 @@ $ crontab -l                                    # Check for active cron jobs
 Normally the cron job send the output of the job to the user email. However, this is not always a wanted feature for very short range interval jobs. 
 If you don't want to Redirect the output of the job by the stream operator (>). For example 
 ```
-0 0 * * * /path/to/script.sh > ~/tmp/output.txt # Output is saved to user tmp folder
-0 0 * * * /path/to/script.sh > /dev/null 2>&1   # No output
+0 0 * * * /path/to/script.sh > ~/tmp/output.txt     # Output is saved to output.txt file
+0 0 * * * /path/to/script.sh >> ~/tmp/output.txt    # Output is added to output.txt file
+0 0 * * * /path/to/script.sh > /dev/null 2>&1       # No output
 ```
 
 Addding MAILTO='' above the cron job will not send an email to the user. It is ofcourse possible to add another email instead of the system email of the current user.   
@@ -104,15 +137,18 @@ Addding MAILTO='' above the cron job will not send an email to the user. It is o
 
 If username is missing current user will be used.
 ```
-#### Note 
+#### Note: 
 From cron manual:
 >The day of a command's execution can be specified in the following two fields — 'day of month', and 'day of week'. If both fields are restricted (i.e., do not contain the "*" character), the command will be run when either field matches the crent time. For example, "30 4 1,15 * 5" would cause a command to be run at 4:30 am on the 1st and 15th of each month, plus every Friday.
 
 #### Example of different cron intervals
-|Cron job                                                  | Description                          |
-|:---------------------------------------------------------|:-------------------------------------|
-| 0 9 1-7 * * [ $(date +\%u) = 7 ] && /path/to/your/script |Run every 1 sunday of the Month 09:00 |
-| 
+|Cron job                                                  | Description                           |
+|:---------------------------------------------------------|:--------------------------------------|
+| * * * * * /path/to/script                                |Run every minute                       |
+| */15 * * * * /path/to/script                             |Run every 15 minute                    |
+| 0 9 1-7 * * [ $(date +\%u) = 7 ] && /path/to/your/script |Run every 1 sunday of the Month 09:00  |
+| 0 9-17 * * 1-5 /path/to/script                           |Monday to Friday every hour 09:00-15:00| 
+| @reboot /path/to/your/script                             |Run at boot                            |
 
 ---
 ### Log & Loggers
@@ -203,9 +239,8 @@ Some of the options are
 -C = Compress data during transfer
 -r = Copy directories recursively
 ```
-
-
 ---
+
 ### Mount on linux
 
 #### CIFS
