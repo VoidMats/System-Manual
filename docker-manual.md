@@ -16,13 +16,41 @@ See how much disk space could be reclaimed from docker and how to reclaim it. It
 $ sudo docker system df
 $ sudo docker system prune
 ``` 
-
 # Docker-compose
+
+## Install docker compose
+```
+ Debian system
+$ sudo apt-get update
+$ sudo apt-get install docker-compose-plugin
+ RPM system
+$ sudo yum update
+$ sudo yum install docker-compose-plugin
+```
+Check the install with command - *$ docker compose version*
+
+## Example docker-compose.yml
+```
+version: "3.3"
+services:
+
+  wfs1:
+    image: docker_hub_account/application:master-latest
+    container_name: application_name
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - ADDITIONAL_ENV=false
+      - EXTRA_URL=https://some-url.com
+```
 
 # Traefik
 Adding traefik to docker. Mount docker.sock, so traefik can listen to docker events. 
 ```
-services:
+services: "3.3"
 
   traefik:
     image: traefik:v2.11
