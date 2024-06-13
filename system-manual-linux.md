@@ -26,6 +26,16 @@ $ lshw                                          # Possible of installation. Almo
 $ lshw -short                                   # More compehendred info
 ```
 
+#### Install/Uninstall .deb package
+```
+  # Install
+$ sudo dpkg -i package_name.deb
+
+  # Uninstall
+$ sudo apt remove package_name
+
+```
+
 #### Get network info on a linux system. 
 It should be noted depending on which linus os is running the commands below might not work. Also, it's very depending of which version is used. Few of many commands...
 ```
@@ -70,7 +80,6 @@ Reactivate the **.bashrc** file
 $ . ~/.bashrc                                   # Both command will due
 $ source ~/.bashrc 
 ```
-
 
 #### System disk information
 ```
