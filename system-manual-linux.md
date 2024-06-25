@@ -6,6 +6,7 @@
     * [Check mac address on IPs close to this computer](#check-mac-address-on-ips-close-to-this-computer)
     * [List port on linux system](#list-port-on-a-linux-system)
     * [Create alias on a linux system](#create-alias-in-linux)
+* [Install/Uninstall .deb](#installuninstall-deb-package)
 * [Firewall](#firewall)
 * [Chron](#chron-daemon-jobs)
     * [Chron syntax](#basic-syntax)
@@ -24,16 +25,6 @@ $ cat /etc/os-release                           # Fedora
 $ lscpu                                         # CPU info
 $ lshw                                          # Possible of installation. Almost all hardware info you can think of
 $ lshw -short                                   # More compehendred info
-```
-
-#### Install/Uninstall .deb package
-```
-  # Install
-$ sudo dpkg -i package_name.deb
-
-  # Uninstall
-$ sudo apt remove package_name
-
 ```
 
 #### Get network info on a linux system. 
@@ -55,11 +46,23 @@ $ ip neighbour
 ```
 
 #### List port on a linux system
-Use grep to show only ports which is/are listening. To stop any ongoing processes, use the 'kill' command  by its id. If the process still does not stop, it's possible to use -9 which is a force signal. But any unsaved data will be lost.
+Use grep to show only ports which is/are listening. To stop any ongoing processes, use the 'kill' command  by its id. If the process still does not stop, it's possible to use -9 which is a force signal. But any unsaved data will be lost. It possible to use ***alias*** for complicated commands, see Create alias in linux.
 ```
 $ lsof -i -P -n | grep LISTEN                   # Will list all ports that are listening
 $ sudo kill -1 [Id_from_second_column_in_list]  # Will greatfully kill service running on that port
 $ sudo kill -9 [Id_from secong_column_in_list]  # Will force kill of service
+```
+
+#### Copy current path to clipboard
+To copy content from a file or a terminal command to the clipboard, there is no command for it, in the linux core. However, very often ***xclip*** or ***xsel*** is used for this purpose. In this guide only xclip will be used. To check if it's installed type:
+```
+$ which xclip
+```
+With xclip it will become easy to pipe ***pwd*** to clipboard. The first command is used, when using middle mouse button to paste content. If you use ctrl+shift+v use the second command. 
+```
+$ pwd | xclip -o
+$ pwd | xclip -o -sel clip
+$ xclip -sel clip [filename]
 ```
 
 #### Create alias in linux
@@ -72,7 +75,11 @@ fi
 add aliases in file **~/.bash_aliases**, otherwise just place it into the **~/.bashrc**. Example on aliases
 ```
 alias grep='grep --color=auto'
-alias ls-port='lsof -i -P -n | grep LISTEN'
+alias ls-p='lsof -i -P -n'
+alias ls-lp='lsof -i -P -n | grep LISTEN'
+alias copy-pwd='pwd | xclip -o -sel clip'
+alias copy-file='xclip -sel clip'
+alias paste='xclip -sel clip -o'
 ```
 
 Reactivate the **.bashrc** file 
@@ -85,6 +92,16 @@ $ source ~/.bashrc
 ```
 $ lsblk                                         # 
 $ df -h                                         #
+```
+
+### Install/Uninstall .deb package
+```
+  # Install
+$ sudo dpkg -i package_name.deb
+
+  # Uninstall
+$ sudo apt remove package_name
+
 ```
 
 ### Firewall
