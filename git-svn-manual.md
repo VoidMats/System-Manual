@@ -3,6 +3,7 @@
 
 * [General](#general)
     - [Set upstream on a branch](#set-upstream-on-a-branch)
+    - [Change origin to another url](#change-origin-to-another-url)
 * [Tag](#tag)
 * [Config](#config)
     - [Set upstream as default on push](#set-config-to-always-place-upstream-on-push)
@@ -12,9 +13,21 @@
 #### Set upstream on a branch
 ```
 $ git branch --set-upstream-to=origin/<branch> branch
-Possible to set upstream during push 
-$ git push --set-upstream origin <branch>
-NB Please note. This could be set in config file 
+
+$ git push --set-upstream origin <branch>       # Possible to set upstream during push 
+
+# NB! Please note. This could be set in config file 
+```
+#### Change origin to another url
+```
+$ git remote -v                                             # First check existing url
+> Example of how it could look like
+> origin  https://github.com/user/repo.git (fetch)
+> origin  https://github.com/user/repo.git (push)
+
+$ git remote set-url origin https://new.url/user/repo.git   # Change url on origin
+
+$ git remote show origin                                    # Confirm changes
 ```
 
 ### Config
