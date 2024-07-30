@@ -26,3 +26,35 @@ AllSigned = Requires that all scripts and configuration files are signed by a tr
 RemoteSigned = Requires that all scripts and configuration files downloaded from the Internet are signed by a trusted publisher
 ```
 More info: [windows manual](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.4) 
+
+### Set python on another folder 
+There are several options to run python from another folder. Python must be installed inside this folder. Could be that symlink is not working properly. 
+
+1. Create a symlink to the folder
+2. Create a batch file 
+
+#### Create symlink
+For command prompt (as administrator)
+```
+$ mklink C:\Windows\System32\python3.exe C:\path\to\folder\python.exe
+```
+Validate in command prompt
+```
+$ dir C:\Windows\System32\python3.exe
+```
+For powershell
+```
+$ New-Item -ItemType SymbolicLink -Path "C:\Windows\System32\python3.exe" -Target "C:\path\to\folder\python.exe"
+```
+Validate in powershell
+```
+$ Get-Item "C:\Windows\System32\python3.exe"
+```
+
+#### Create batch file 
+Create a file with the following content
+```
+@echo off
+"C:\path\to\folder\python.exe" %*
+```
+Save the file as python3.bat in the path "C:\Windows\System32". Make sure the environment system variable PATH has the path "C:\Windows\System32". Validate with the command "python3 --version".
