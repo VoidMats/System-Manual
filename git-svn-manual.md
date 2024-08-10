@@ -106,12 +106,40 @@ $ git push origin v1.2.3
 
 More info: [git doc](https://git-scm.com/docs/git-tag)
 
-## SVN
-Most important to know is that SVN is a central rep
+---
+
+## SVN (Subversion)
+Most important to know is that SVN is a centralized version control system. This means that the version history is stored in a central server which requires developers to connect with the server as they are making changes. The files on your computer are called *working* files.  It's recommended to install 'TortoiseSVN', the graphical client for Subversion (SVN). 
+
+> Note 1: In Subversion, most commands take effect from the current directory and recurse down.
+Everything else is ignored. This is not the case in example Git where most commands work on the
+entire tree.
+
+> Note 2: Subversion does not have any ignore list.
+
 ### Basic commands
 
+#### Status
+TODO
+
+#### Update
+TODO
+
+#### Delete 
+SVN delete command is very similar to git. There are however, some hick ups. Ones the command is set, will the specified item(s) be scheduled for deletion upon the next commit. Files (and directories that have not been committed) are immediately removed from the working copy unless the *--keep-local* option is given. The command will not remove any unversioned or modified items; use the --force option to override this behavior.
+```
+$ svn rm <filename/path/folder> [options]
+
+ Options
+--keep-local = Keep the item locally on your disk
+--force = Force deletion of item
+--message (-m) = Specify a log message to command 
+
+Example
+```
+
 #### Checkout
-Check out a working copy from the repository. This command is sometimes shortened to svn co. Path could be omitted
+Check out a working copy from the repository. This command is sometimes shortened to svn co. Path could be omitted.
 ```
 $ svn checkout [url/path]                       # Checkout a complete repository 
 
@@ -125,5 +153,9 @@ $ svn commit                                    # Commit code to the repository
  Options
 -m = Message
 ```
+
+#### Delete files 
+The delete command
+
 
 #### List
