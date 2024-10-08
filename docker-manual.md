@@ -1,6 +1,17 @@
 
 # Docker
 
+To create a image locally 
+```
+$ sudo docker buildx build .                        # Create image from Dockerfile
+$ sudo docker buildx build -f <filepath> .          # Create image from specified Dockerfile
+$ sudo docker buildx build --build-arg VAR="test"   # Set variable which exist in Dockerfile
+```
+
+> Note 1. There are many build options. To get complete list [Read this](https://docs.docker.com/reference/cli/docker/buildx/build/)
+
+> Note 2. Docker has changed from using 'docker build' to 'docker buildx build'. That does not effect the Dockerfile it self, just how the building is implemented and with extended support. Docker buildx was moved from experimental feature in Docker 20.10
+
 To use a terminal within a container
 ```
 $ sudo docker exec -it [kontainernamn] sh 
