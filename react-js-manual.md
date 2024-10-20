@@ -124,3 +124,15 @@ export default function SomeComponent({ open }) {
     )
 }
 ```
+
+### Check performance 
+performance.memory.jsHeapSizeLimit; // will give you the JS heap size
+performance.memory.usedJSHeapSize; // how much you're currently using
+
+### Create an Array with increment numbers 
+```
+Array.from(Array(10).keys());                   # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[...Array(10).keys()]                           # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] Using spread operator
+Array.from({length: 10}, (_, i) => i + 1)       # Possible to set the start index
+```
+
