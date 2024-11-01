@@ -194,10 +194,45 @@ $ journalctl --no-pager -n [nr_lines] -u [service]
 ```
 
 ---
-### ssh
+### SSH
 
-Create a new key for your system
-> ssh-keygen -t [algorithm] -C [email]
+Create a new key for your system. Regarding algorithm, there are many out there. RSA (SHA-1) was for many years the default in OpenSSH. However, from version 8.2 it was deprecated. It is of course possible to use RSA SHA-2 (RFC8332) that use a higher bit rate. But many people have moved over to ECDSA or DSA. ECDSA is newer asymmetric encryption algorithm that is based on elliptic curves. 
+```
+$ ssh-keygen -t [algorithm] -C [email]
+```
+Some of the options are
+```
+-b = Specifies the number of bits in the key to create (bits). 
+-A = Generate host keys of all default key types (rsa, ecdsa and ed25519) if they do not already exist. 
+-f = Specifies the filename of the key file.
+-t = Specifies the type of key to create. Following types exist: dsa, ecdsa, ecdsa-sk, ed25519,  ed25519-sk, rsa.
+```
+
+```
+Enter file in which to save the key (/home/[account]/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):  
+Enter same passphrase again:
+Your identification has been saved in /home/[account]/.ssh/id_rsa.
+Your public key has been saved in /home/[account]/.ssh/id_rsa.pub.
+The key fingerprint is: SHA256:Up6KjbnEV4Hgfo75YM393QdQsK3Z0aTNBz0DoirrW+c
+The key's randomart image is:
+
++---[RSA 2048]----+ 
+|    .      ..oo..| 
+|   . . .  . .o.X.| 
+|    . . o.  ..+ B| 
+|   .   o.o  .+ ..| 
+|    ..o.S   o..  | 
+|   . %o=      .  | 
+|    @.B...     . |
+|   o.=. o. . .  .| 
+|    .oo  E. . .. | 
++----[SHA256]-----+
+
+  Example:
+$ ssh-keygen -t ECDSA
+$ ssh-keygen -t rsa -b 2048
+```
 
 Add your private SSH key to ssh-agent. Start with activate the agent in the background 
 ```
@@ -209,10 +244,12 @@ $ ssh-copy-id -i ~/.ssh/[key] [name]@[ip]               # Copy key to another sy
 Delete old known_hosts which gave remote host identification has changed. It possible to check which lines of the file ~/.ssh/known_hosts are effected with command 'cat ~/.ssh/known_hosts'.  
 ```
 $ ssh-keygen -R [hostname|ip]
-$ example $ ssh-keygen -R 192.168.1.3
+
+ Example:
+$ ssh-keygen -R 192.168.1.3
 ```
 
-#### ssh configuration
+### SSH configuration
 It is possible to "save" different ssh connection by using config (same name) file in the the .ssh folder. By default, it will try to use key .ssh/id_rsa and after that .ssh/id_dsa. It is possible to specify The structure of the file could for example look like this. 
 ```
 Host dev
@@ -246,16 +283,25 @@ Some of the options
 * Compression = Messages will be compressed.
 * ConnectionAttempts = Set the number of attempts before exiting.
 
-#### scp (file transfer through ssh)
-To transfer a file(s) between a remote and client it's easiest to use scp. It should be noted to be careful when writting files General function
+### SCP (file transfer through ssh)
+To transfer a file(s) between a remote and client it's easiest to use scp. It should be noted to be careful when writting files...
+
+> Note 1: The default port for scp is 22. If the remote server is using another port, this has to be specified in the command. See example 3.
+
+> Note 2: 
 ```
-$ [options] [source_user]@source_host:/directory/source_file [destination_user]@destination_host:/directory(/destination_file)
+$ scp [options] [source_user]@source_host:/directory/source_file [destination_user]@destination_host:/directory(/destination_file)
  
  Examples:
+
 Copy from your local pc to a remote server
 $ scp image.png remote_user1@192.168.1.2:/desktop/images
+
 Copy from one remote server to another 
 $ scp remote_user1@192.168.1.2:/desktop/images/image.png remote_user2@192.168.1.3/download
+
+Copy local file to remote server on port 24
+$ scp ./foo.txt remote_user1@192.168.1.2:24/desktop/images/foo.txt
 ```
 Some of the options are
 ```
