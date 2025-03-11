@@ -7,10 +7,15 @@
     * [List port on linux system](#list-port-on-a-linux-system)
     * [Create alias on a linux system](#create-alias-in-linux)
 * [Install/Uninstall .deb](#installuninstall-deb-package)
+* [Network](#network)
+    * [Get network info](#get-network-info-on-a-linux-system)
+    * [NetworkManager](#networkmanager)
 * [Firewall](#firewall)
 * [Chron](#chron-daemon-jobs)
     * [Chron syntax](#basic-syntax)
+* [Logs](#log--loggers)
 * [SSH](#ssh)
+    * [SSH configuration](#ssh-configuration)
     * [File transfer, remote/client - scp](#scp-file-transfer-through-ssh)
 
 ### Linux commands
@@ -27,23 +32,9 @@ $ lshw                                          # Possible of installation. Almo
 $ lshw -short                                   # More compehendred info
 ```
 
-#### Get network info on a linux system. 
-It should be noted depending on which linus os is running the commands below might not work. Also, it's very depending of which version is used. Few of many commands...
-```
-$ ifconfig                                      # Lista all network interfaces that are operative
-$ cat /etc/network/interfaces                   # Possible that configuration file is placed in another location
-$ nmcli con show                                # Show all network connection
-$ nmcli con show [connection]                   # Get specific info of connection
-$ ip -c a                                       #
-$ ip addr                                       # Simalar to ifconfig
-$ ip route list default | grep dhcp             # Check if your ip is dynamic
-$ ip route list default | grep static           # Check if your ip is static
-```
 
-#### Check mac address on IPs close to this computer
-```
-$ ip neighbour
-```
+
+
 
 #### List port on a linux system
 Use grep to show only ports which is/are listening. To stop any ongoing processes, use the 'kill' command  by its id. If the process still does not stop, it's possible to use -9 which is a force signal. But any unsaved data will be lost. It possible to use ***alias*** for complicated commands, see Create alias in linux.
@@ -95,6 +86,15 @@ $ df -h                                         #
 ```
 
 ### Install/Uninstall .deb package
+Verify that the file does not have any external changes. For this you will need an SHA-256 file which could be used to do a checksum. This will of course not 100% garantie that the file is valid. 
+```
+  To get the hash 
+$ sha256sum ~/path/to/file.zip
+  This should be compared with the SHA-256 from the supplier
+$ sha256sum ~/path/to/file.zip | grep <supplied hash>
+```
+
+
 ```
   # Install
 $ sudo dpkg -i package_name.deb
@@ -102,6 +102,35 @@ $ sudo dpkg -i package_name.deb
   # Uninstall
 $ sudo apt remove package_name
 
+```
+
+### Network
+
+#### Get network info on a linux system.
+It should be noted depending on which linux os is running the commands below might not work. Also, it's very depending of which version is used. Few of many commands...
+```
+$ ifconfig                                      # Lista all network interfaces that are operative
+$ cat /etc/network/interfaces                   # Possible that configuration file is placed in another location
+$ ip -c a                                       # Print all network interfaces. Very handy command
+$ ip addr                                       # Simalar to ifconfig
+$ ip route list default | grep dhcp             # Check if your ip is dynamic
+$ ip route list default | grep static           # Check if your ip is static
+$ ip link show [connection]                     # Check status of connection/NIC
+$ ip neighbour                                  # Check mac address closes to this IP
+```
+#### ethtool
+
+```
+$ sudo ethtool --set-eee [connection] off       # Disable power saving - EEE
+$ sudo ethtool --show-eee [connection]          # Show if EEE supported  
+```
+
+#### NetworkManager
+Commands only specific for NetworkManager and NetworkManager-gnome. 
+```
+$ nmcli device show [connection]                # Realtime log of connection 
+$ nmcli con show                                # Show all network connection
+$ nmcli con show [connection]                   # Get specific info of connection
 ```
 
 ### Firewall
@@ -125,7 +154,7 @@ $ sudo ufw delete allow 22/tcp                  # Remove rule
 $ sudo ufw status numbered 
 $ sudo ufw delete [number]
 ```
-It also possible to strict allow/deny ingoing and outgoing traffic, by using the 'in' and 'out' argument. 
+It's also possible to strict allow/deny ingoing and outgoing traffic, by using the 'in' and 'out' argument. 
 ```
 $ sudo ufw allow in 23/tcp                      # Only allow incomming traffic on port 23
 $ sudo ufw deny in 443                          # Deny incoming traffic on port 443
@@ -179,7 +208,7 @@ From cron manual:
 ---
 ### Log & Loggers
 
-#### Print system log 
+#### Print system log - journalctl
 ```
 $ journalctl
  * -a | --all = Show all fields in full. 
@@ -188,9 +217,22 @@ $ journalctl
  * -n | --lines = Print the n last lines.
  * -g | --grep = Filter to output with matching words according to "grep" command. 
  * --no-pager = Do not pipe output into a pager
+ * --since = [YYYY-MM-DD hh:mm] Gather log from 
 
  Example: 
 $ journalctl --no-pager -n [nr_lines] -u [service]
+```
+It's of course possible to pipe with grep.  
+
+#### Print kernal log - dmesg
+```
+$ dmesg
+* -T | --ctime = Human readable timestamp
+* -P | --no-pager = Do not pipe output into a pager
+* -w | --follow = Wait for next messages
+
+ Example:
+ $ dmesg | grep -i enp2s0
 ```
 
 ---
@@ -362,6 +404,9 @@ $ npm install git+ssh://git@github.com:npm/cli#semver:^5.0
 $ npm install git+https://isaacs@github.com/npm/cli.git
 $ npm install git://github.com/npm/cli.git#v1.0.27
 ```
+
+### yarn
+
 
 ### Certificate
 
