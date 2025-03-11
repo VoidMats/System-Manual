@@ -58,3 +58,18 @@ Create a file with the following content
 "C:\path\to\folder\python.exe" %*
 ```
 Save the file as python3.bat in the path "C:\Windows\System32". Make sure the environment system variable PATH has the path "C:\Windows\System32". Validate with the command "python3 --version".
+
+## SSH
+
+### Copy SSH key to remote server
+There are several ways to do this. If you are using a wsl environment, it's important that the right ssh key is copied. 
+To copy ssh key in wsl use the linux command ssh-copy-id
+```
+$ ssh-copy-id -i ~/.ssh/[key].pub [user]@[remote-host]
+ex: ssh-copy-id -i ~/.ssh/id_rsa.pub user@192.168.1.2
+```
+To copy ssh key from windows 
+```
+$ ssh-copy-id -i /mnt/c/Users/your-user/.ssh/[key].pub [user]@[remote-host]
+ex: ssh-copy-id -i /mnt/c/Users/your-user/.ssh/id_rsa.pub user@192.168.1.
+```
