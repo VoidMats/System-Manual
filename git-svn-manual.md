@@ -13,7 +13,6 @@
 #### Set upstream on a branch
 ```
 $ git branch --set-upstream-to=origin/<branch> branch
-
 $ git push --set-upstream origin <branch>       # Possible to set upstream during push 
 
 # NB! Please note. This could be set in config file 
@@ -159,3 +158,20 @@ The delete command
 
 
 #### List
+
+
+## Gitlab
+This chapter will not be about Git, but rather when you are setting up an own Gitlab server. This cahpter will cover some hints and other usual tips.
+
+* [Reset gitlab root password](#reset-gitlab-root-password)
+
+### Reset gitlab root password
+It is possible to change the root password. Run this command for standalone server.
+```shell
+ gitlab-rake "gitlab:password:reset[root]"
+```
+If Gitlab is running in a container, run following command.
+```shell
+ docker exec -it [container name] gitlab-rake "gitlab:password:reset[root]"
+```
+Change container name with you actual container name running Gitlab. It can take some time before the "Enter password promt" appear.

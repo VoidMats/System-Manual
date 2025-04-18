@@ -129,10 +129,36 @@ export default function SomeComponent({ open }) {
 performance.memory.jsHeapSizeLimit; // will give you the JS heap size
 performance.memory.usedJSHeapSize; // how much you're currently using
 
-### Create an Array with increment numbers 
+## Javascript
+Below there will be some small tips when programming in javascript. Most of the "tips" are general and probably only 
+used under certain situations. 
+
+* [Create an Array with increment numbers](#create-an-array-with-increment-numbers)
+* [Local Storage](#local-storage)
+* [Session Storage](#session-storage)
+* [IndexDB](#indexdb)
+
+### Create an Array with increment numbers
 ```
 Array.from(Array(10).keys());                   # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 [...Array(10).keys()]                           # [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] Using spread operator
 Array.from({length: 10}, (_, i) => i + 1)       # Possible to set the start index
 ```
+
+### Local Storage
+Local storage is a synchronous storage which is could be used on the client side for key-value solutions. The storage
+limit is about 5Mb per domain. The data could persist in the browser even if it is closed. The ideal data to store is 
+local user data which is only used by the browser, ex user preferences. 
+
+### Session Storage
+Session storage work the same way as for Local Storage, but with big difference that the data will be lost when the 
+session is closed. This mean also that if a new browser is open session storage is not shared between difference sessions. 
+
+### IndexDB
+For storage of large amount of data IndexDB has to be used. It is asynchronous solution made to store structured data, 
+files, blobs or other complex structured objects. 
+
+
+
+
 

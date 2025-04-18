@@ -68,8 +68,14 @@ To copy ssh key in wsl use the linux command ssh-copy-id
 $ ssh-copy-id -i ~/.ssh/[key].pub [user]@[remote-host]
 ex: ssh-copy-id -i ~/.ssh/id_rsa.pub user@192.168.1.2
 ```
-To copy ssh key from windows 
+To copy ssh key from windows (from wsl)
+```shell
+ssh-copy-id -i /mnt/c/Users/[user]/.ssh/[key].pub [user]@[remote-host]
+ex: ssh-copy-id -i /mnt/c/Users/alice/.ssh/id_rsa.pub alice@192.168.1.2
 ```
-$ ssh-copy-id -i /mnt/c/Users/your-user/.ssh/[key].pub [user]@[remote-host]
-ex: ssh-copy-id -i /mnt/c/Users/your-user/.ssh/id_rsa.pub user@192.168.1.
+To copy ssh key from Windows using powershell. The ssh-copy-id application is not a part of Windows and powershell. 
+It is also possible to manually add the public key, if you have the rights to do so. 
+```shell
+type $env:USERPROFILE\.ssh\[key].pub | ssh [user]@[remote-host] "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+ex $env:USERPROFILE\.ssh\id_rsa.pub | ssh alice@192.168.1.2 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 ```

@@ -32,10 +32,6 @@ $ lshw                                          # Possible of installation. Almo
 $ lshw -short                                   # More compehendred info
 ```
 
-
-
-
-
 #### List port on a linux system
 Use grep to show only ports which is/are listening. To stop any ongoing processes, use the 'kill' command  by its id. If the process still does not stop, it's possible to use -9 which is a force signal. But any unsaved data will be lost. It possible to use ***alias*** for complicated commands, see Create alias in linux.
 ```
@@ -84,6 +80,7 @@ $ source ~/.bashrc
 $ lsblk                                         # 
 $ df -h                                         #
 ```
+* If the /var is on a separate partition, it's important that cache is cleared time to time. Run 'sudo apt-get clean'
 
 ### Install/Uninstall .deb package
 Verify that the file does not have any external changes. For this you will need an SHA-256 file which could be used to do a checksum. This will of course not 100% garantie that the file is valid. 
@@ -93,7 +90,6 @@ $ sha256sum ~/path/to/file.zip
   This should be compared with the SHA-256 from the supplier
 $ sha256sum ~/path/to/file.zip | grep <supplied hash>
 ```
-
 
 ```
   # Install
