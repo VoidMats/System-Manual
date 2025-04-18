@@ -124,6 +124,8 @@ TODO
 #### Update
 TODO
 
+
+
 #### Delete 
 SVN delete command is very similar to git. There are however, some hick ups. Ones the command is set, will the specified item(s) be scheduled for deletion upon the next commit. Files (and directories that have not been committed) are immediately removed from the working copy unless the *--keep-local* option is given. The command will not remove any unversioned or modified items; use the --force option to override this behavior.
 ```
@@ -151,6 +153,12 @@ $ svn commit                                    # Commit code to the repository
 
  Options
 -m = Message
+```
+#### Commit properties of a file (ex executable)
+Sometime it's needed to change the properties of file. This could for example be the cause when running in different OS or a file need to be executable. 
+```
+$ svn propset svn:executable ON [name_of_file]
+$ svn commit [name_of_file]
 ```
 
 #### Delete files 
