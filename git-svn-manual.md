@@ -3,7 +3,8 @@
 
 * [General](#general)
     - [Set upstream on a branch](#set-upstream-on-a-branch)
-    - [Change origin to another url](#change-origin-to-another-url)
+    - [Add remote](#add-remote)
+    - [Change upstream on a remote](#change-upstream-on-a-remote)
 * [Tag](#tag)
 * [Config](#config)
     - [Set upstream as default on push](#set-config-to-always-place-upstream-on-push)
@@ -17,15 +18,27 @@ $ git push --set-upstream origin <branch>       # Possible to set upstream durin
 
 # NB! Please note. This could be set in config file 
 ```
-#### Change origin to another url
+#### Add remote
 ```
 $ git remote -v                                             # First check existing url
 > Example of how it could look like
 > origin  https://github.com/user/repo.git (fetch)
 > origin  https://github.com/user/repo.git (push)
 
-$ git remote set-url origin https://new.url/user/repo.git   # Change url on origin
+$ git remote add "gitlab" https://gitlab.com/user/repo.git 
 
+$ git remote -v                                             # Check result
+> Example of how it could look like
+> origin  https://github.com/user/repo.git (fetch)
+> origin  https://github.com/user/repo.git (push)
+> gitlab  https://gitlab.com/user/repo.git (fetch)
+> gitlab  https://gitlab.com/user/repo.git (push)
+```
+
+#### Change upstream on a remote
+```
+$ git remote -v                                             # First check existing url
+$ git remote set-url origin https://new.url/user/repo.git   # Change url on origin
 $ git remote show origin                                    # Confirm changes
 ```
 
@@ -46,9 +59,9 @@ $ git config --get-regexp user          # Get values according to a regex
 ```
 
 #### Config levels
-**Local**: [--local] Configuration will be stored loaclly for the repository where the command is performed upon. This is also the default option when no configuration level has been passed. The configuration file is stored in the same directory as the repository. 
+**Local**: [--local] Configuration will be stored locally for the repository where the command is performed upon. This is also the default option when no configuration level has been passed. The configuration file is stored in the same directory as the repository. 
 
-**Global**: [--global] Global level configuration which onyl apply to the user. Global configuration file(s) is/are stored localy on user home directory. For example on a unix system *~/.gitconfig*
+**Global**: [--global] Global level configuration which only apply to the user. Global configuration file(s) is/are stored localy on user home directory. For example on a unix system *~/.gitconfig*
 
 **System**: [--system] System level configuration which is applied accross an entire machine. This mean it will effect all users and repositories. The values are stored in *gitconfig* at the system root path. 
 
@@ -61,6 +74,7 @@ All commands below are set on a global level, meaning effect only the user.
 | emacs             | git config --global core.editor "emacs"           |
 | nano              | git config --global core.editor "nano -w"         |
 | vim               | git config --global core.editor "vim"             |
+| webstorm          | git config --global core.editor "webstorm --wait" |
 
 #### Set config to always place upstream on push
 ```
@@ -73,9 +87,7 @@ git config pull.rebase false  # merge (the default strategy)
 git config pull.rebase true   # rebase
 git config pull.ff only       # fast-forward only
 ```
-
-
-As usal more info can be found [git doc](https://git-scm.com/docs/git-config)
+As usual more info can be found [git doc](https://git-scm.com/docs/git-config)
 
 ### Tag
 There are two types of tages, *annotated* and *lightweight* tags. To create a new tag run following command
