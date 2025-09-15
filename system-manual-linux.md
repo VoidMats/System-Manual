@@ -3,7 +3,6 @@
 * [Get linux operation version](#get-linux-operation-version)
 * [Get hardware info on a linux system](#get-hardware-info-on-a-linux-system)
     * [Get network info on a linux system](#get-network-info-on-a-linux-system)
-    * [Check mac address on IPs close to this computer](#check-mac-address-on-ips-close-to-this-computer)
     * [List port on linux system](#list-port-on-a-linux-system)
     * [Create alias on a linux system](#create-alias-in-linux)
 * [Install/Uninstall .deb](#installuninstall-deb-package)
