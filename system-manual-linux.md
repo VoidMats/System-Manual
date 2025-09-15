@@ -93,12 +93,37 @@ $ sha256sum ~/path/to/file.zip | grep <supplied hash>
 
 ```
   # Install
-$ sudo dpkg -i package_name.deb
+$ sudo dpkg -i <package_name.deb>
 
   # Uninstall
-$ sudo apt remove package_name
+$ sudo apt remove <package_name>
+```
+
+### Advanced Package Tool - APT
+The main purpose of *apt* is to install, update or delete applications on a Debian server. This tool make sure the 
+system is up-to-date with security patches and new features on an application. Apt uses dpkg commands to install and 
+update the system. To make it easier for the user *apt* will fetch the newest update from a repository and keep them in 
+an archive until installed by the user. Usually the archive is located in /var/cache/apt/archives/ and can sometime run 
+low on space. 
 
 ```
+  # Install a single package using apt
+$ sudo apt install <package_name>
+  
+  # Update a single package using apt
+$ sudo apt install --only-upgrade <package_name>
+
+  # Clear out the local archive of retrieved packages files, except locked files.
+$ sudo apt clean  
+
+  # Autoclean the local archive, but onle remove files which can't be fetch anymore and are more or less useless.
+$ sudo apt autoclean
+
+  # Autoremove is command to remove packages which are not used anymore. If a package has been removed but not purged, 
+  # autoremove will delete does files. 
+$ sudo apt autoremove
+```
+
 
 ### Network
 
