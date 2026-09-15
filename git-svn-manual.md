@@ -75,6 +75,7 @@ All commands below are set on a global level, meaning effect only the user.
 | nano              | git config --global core.editor "nano -w"         |
 | vim               | git config --global core.editor "vim"             |
 | webstorm          | git config --global core.editor "webstorm --wait" |
+| code              | git config --global core.editor "code --wait"     |
 
 #### Set config to always place upstream on push
 ```
